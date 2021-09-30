@@ -47,24 +47,319 @@ If you need inspiration for what to write, take a look at previously approved st
  */
 
 /*
- UDT 1:
+ UDT 1: CarWash
  */
+#include <iostream>
 
+struct CarWash
+{
+    std::string washType = "basic";
+    double cost;
+    int numberOfWashers;
+    double discountedCost = 5.0;
+    double height = 10.0;
+    bool hasDiscount = false;
+
+    CarWash(double cost_, int numberOfWashers_) 
+    : cost(cost_), numberOfWashers(numberOfWashers_)
+    {
+    }
+    ~CarWash()
+    {
+        std::cout << "CarWash\n";
+    }
+
+    void washCar();
+
+    void discount();
+
+    bool pay(int cardInfo, double amount = 0.0);
+
+    struct Washer
+    {
+        double length;
+        bool isOn=false;
+        char color;
+        bool isClockWise;
+        int numberOfSides;
+
+        Washer(char color_, bool isClockWise_ = true, int numberOfSides_ = 4) 
+        : color(color_), isClockWise(isClockWise_), numberOfSides(numberOfSides_)
+        {
+        }
+        ~Washer()
+        {
+            std::cout << "Washer\n";
+        }
+
+        int graduallyAddSides(int sidesToAdd = 100);
+        void toggleOnOff();
+        void switchDirections();
+    };
+};
+
+void CarWash::washCar()
+{
+    for(int i = 1; i<numberOfWashers + 1; i++)
+    {
+        std::cout << i << " Washers used\n" << "\n";
+    }
+}
+
+void CarWash::discount()
+{
+    hasDiscount = true;
+}
+
+//not sure where to put default arguments
+bool CarWash::pay(int cardInfo, double amount)
+{
+    if(cardInfo != 0)
+    {
+        std::cout << "Paying Amount: " << amount;
+        return true;
+    }
+    return false;
+}
+
+int CarWash::Washer::graduallyAddSides(int sidesToAdd)
+{
+    for(int i = numberOfSides; i < numberOfSides + sidesToAdd; i++)
+    {
+           std::cout << i << " is the current number of sides\n";
+    }
+    numberOfSides += sidesToAdd;
+    return numberOfSides;
+}
+
+void CarWash::Washer::toggleOnOff()
+{
+    isOn = !isOn;
+}
+
+void CarWash::Washer::switchDirections()
+{
+    isClockWise = !isClockWise;
+}
 /*
  UDT 2:
  */
+struct Animal
+{
+    int numLegs = 2;
+    int numArms = 2;
+    int numEyes;
+    bool canFly;
+    double weight;
+
+    Animal(int numEyes_ = 2, bool canFly_=false, double weight_ = 20.0) 
+    : numEyes(numEyes_), canFly(canFly_), weight(weight_)
+    {
+    }
+
+    ~Animal()
+    {
+        std::cout << "Animal\n";
+    }
+
+    bool tryToFly();
+    void loseLegs();
+    double jump(); //returns jump height
+
+    struct Brain
+    {
+        int numOfCells;
+        double weight;
+        int age;
+        bool isAwake;
+        bool isGrowing;
+
+        Brain(int numOfCells_ = 100) : numOfCells(numOfCells_)
+        {
+        }
+
+        ~Brain()
+        {
+            std::cout << "Brain\n";
+        }
+    
+        std::string think(std::string subject);
+        void sleep();
+        void grow();
+    };
+    Brain animalBrain;
+};
+
+bool Animal::tryToFly()
+{
+    if(canFly)
+    {
+        std::cout << "Flying\n";
+        return true;
+    }
+    std::cout << "Falling\n";
+    return false;
+}
+
+void Animal::loseLegs()
+{
+    for(int i = numLegs; i > 0; i--)
+    {
+        std::cout << "Lost a leg\n";
+    }
+}
+double Animal::jump()
+{
+    if(canFly)
+    {
+        return 100.0;
+    }
+    else
+    {
+        return 4.0;
+    }
+}
+
+std::string Animal::Brain::think(std::string subject)
+{
+    for(int i = 0; i < 100; i++)
+    {
+        std::cout << subject << "\n";
+    }
+    return "done thinking\n";
+}
+
+void Animal::Brain::sleep()
+{
+    isAwake = false;
+}
+
+void Animal::Brain::grow()
+{
+    weight++;
+}
 
 /*
  UDT 3:
  */
+struct Lamp
+{
+    bool isOn=false;
+    double brightness;
+    int numberOfBulbs=4;
+    double hue;
+    double wattage;
+
+    void turnOn();
+    void light(bool hasPower=true);
+    double getPowerConsumption();
+
+    Lamp(double brightness_, double hue_, double wattage_)
+    : brightness(brightness_), hue(hue_), wattage(wattage_)
+    {
+    }
+
+    ~Lamp()
+    {
+        std::cout << "Lamp\n";
+    }
+};
+
+void Lamp::turnOn()
+{
+    isOn=true;
+}
+void Lamp::light(bool hasPower)
+{
+    while(isOn)
+    if(hasPower && brightness < 100)
+    {
+        brightness += 0.01;
+    }
+    else
+    {
+       return;
+    }
+}
+
+double Lamp::getPowerConsumption()
+{
+    return brightness * hue * wattage;
+}
 
 /*
  new UDT 4:
  */
+struct GasStation
+{
+    Lamp lamp;
+    CarWash carWash;
+
+    GasStation(Lamp l, CarWash c) 
+    : lamp(l), carWash(c)
+    {}
+
+    ~GasStation()
+    {
+        std::cout << "End of Life Discount\n";
+        carWash.discount();
+    }
+
+    void payForPremiumWash(int cardNumber);
+    void nightCarWash(int cardNumber);
+
+    
+};
+
+void GasStation::payForPremiumWash(int cardNumber)
+{
+    carWash.pay(cardNumber, 1000.00 * carWash.numberOfWashers);
+    
+}
+
+void GasStation::nightCarWash(int cardNumber)
+{
+    carWash.pay(cardNumber, 500.00 * carWash.numberOfWashers);
+    lamp.turnOn();
+    carWash.washCar();
+}
+
+struct PetStore
+{
+    Lamp lizardLamp;
+    Animal animal;
+
+    PetStore(Lamp l, Animal a)
+    : lizardLamp(l), animal(a)
+    {}
+    ~PetStore()
+    {
+        std::cout << "Putting Animal to Sleep";
+        animal.animalBrain.sleep();
+    }
+
+    void growLizard();
+    void lizardEpiphany();
+};
+
+void PetStore::growLizard()
+{
+    lizardLamp.turnOn();
+    animal.animalBrain.grow();
+    animal.numLegs++;
+}
 
 /*
  new UDT 5:
  */
+void PetStore::lizardEpiphany()
+{
+    lizardLamp.turnOn();
+    animal.animalBrain.think("aha!\n");
+    animal.canFly = true;
+}
+
+
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
@@ -80,5 +375,18 @@ If you need inspiration for what to write, take a look at previously approved st
 #include <iostream>
 int main()
 {
+    PetStore p = PetStore(Lamp(100.0, 100.0, 20.0), Animal());
+    p.lizardEpiphany();
+    p.growLizard();
+
+    GasStation g(Lamp(100.0, 50.0, 20.0), CarWash(5.0, 4));
+    g.payForPremiumWash(151);
+    g.nightCarWash(151);
+
     std::cout << "good to go!" << std::endl;
+    /*
+     7) use at least 2 instances of each of your UDTs in main. 
+        add some std::cout statements in main() that use your UDT's member variables.
+    */
+
 }
