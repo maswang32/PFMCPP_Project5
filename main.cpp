@@ -96,11 +96,13 @@ struct CarWash
         void toggleOnOff();
         void switchDirections();
     };
+    Washer w = Washer('g');
+
 };
 
 void CarWash::washCar()
 {
-    for(int i = 1; i<numberOfWashers + 1; i++)
+    for(int i = 1; i < numberOfWashers + 2; ++i)
     {
         std::cout << i << " Washers used\n" << "\n";
     }
@@ -124,7 +126,7 @@ bool CarWash::pay(int cardInfo, double amount)
 
 int CarWash::Washer::graduallyAddSides(int sidesToAdd)
 {
-    for(int i = numberOfSides; i < numberOfSides + sidesToAdd; i++)
+    for(int i = numberOfSides; i < numberOfSides + sidesToAdd+1; ++i)
     {
            std::cout << i << " is the current number of sides\n";
     }
@@ -203,7 +205,7 @@ bool Animal::tryToFly()
 
 void Animal::loseLegs()
 {
-    for(int i = numLegs; i > 0; i--)
+    for(int i = numLegs; i > 0; --i)
     {
         std::cout << "Lost a leg\n";
     }
@@ -222,7 +224,7 @@ double Animal::jump()
 
 std::string Animal::Brain::think(std::string subject)
 {
-    for(int i = 0; i < 100; i++)
+    for(int i = 0; i < 100; ++i)
     {
         std::cout << subject << "\n";
     }
@@ -236,7 +238,7 @@ void Animal::Brain::sleep()
 
 void Animal::Brain::grow()
 {
-    weight++;
+    ++weight;
 }
 
 /*
@@ -346,7 +348,7 @@ void PetStore::growLizard()
 {
     lizardLamp.turnOn();
     animal.animalBrain.grow();
-    animal.numLegs++;
+    ++animal.numLegs;
 }
 
 /*
@@ -382,6 +384,37 @@ int main()
     GasStation g(Lamp(100.0, 50.0, 20.0), CarWash(5.0, 4));
     g.payForPremiumWash(151);
     g.nightCarWash(151);
+
+    Lamp l = Lamp(100.0, 100.0, 20.0);
+    l.turnOn();
+    l.getPowerConsumption();
+    l.light(true);
+
+
+    //Animal tests
+    Animal a = Animal();
+    bool isFly = a.tryToFly();
+    isFly = !isFly;
+    a.loseLegs();
+    double jump = a.jump();
+
+    jump +=1;
+
+
+    a.animalBrain.think("thinking about C++");
+    a.animalBrain.grow();
+    a.animalBrain.sleep();
+
+
+    CarWash c = CarWash(5.0, 4);
+    c.pay(100500, 9.00);
+    c.discount();
+    c.washCar();
+
+    //nested
+    c.w.switchDirections();
+    c.w.graduallyAddSides(100);
+    c.w.toggleOnOff();
 
     std::cout << "good to go!" << std::endl;
     /*
