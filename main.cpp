@@ -96,7 +96,7 @@ struct CarWash
         void toggleOnOff();
         void switchDirections();
     };
-    Washer w = Washer('g');
+    Washer washer = Washer('g');
 
 };
 
@@ -377,44 +377,44 @@ void PetStore::lizardEpiphany()
 #include <iostream>
 int main()
 {
-    PetStore p = PetStore(Lamp(100.0, 100.0, 20.0), Animal());
-    p.lizardEpiphany();
-    p.growLizard();
+    auto petStore = PetStore(Lamp(100.0, 100.0, 20.0), Animal());
+    petStore.lizardEpiphany();
+    petStore.growLizard();
 
-    GasStation g(Lamp(100.0, 50.0, 20.0), CarWash(5.0, 4));
-    g.payForPremiumWash(151);
-    g.nightCarWash(151);
+    GasStation gasStation(Lamp(100.0, 50.0, 20.0), CarWash(5.0, 4));
+    gasStation.payForPremiumWash(151);
+    gasStation.nightCarWash(151);
 
-    Lamp l = Lamp(100.0, 100.0, 20.0);
-    l.turnOn();
-    l.getPowerConsumption();
-    l.light(true);
+    auto lamp = Lamp(100.0, 100.0, 20.0);
+    lamp.turnOn();
+    lamp.getPowerConsumption();
+    lamp.light(true);
 
 
     //Animal tests
-    Animal a = Animal();
-    bool isFly = a.tryToFly();
+    auto animal = Animal();
+    bool isFly = animal.tryToFly();
     isFly = !isFly;
-    a.loseLegs();
-    double jump = a.jump();
+    animal.loseLegs();
+    double jump = animal.jump();
 
     jump +=1;
 
 
-    a.animalBrain.think("thinking about C++");
-    a.animalBrain.grow();
-    a.animalBrain.sleep();
+    animal.animalBrain.think("thinking about C++");
+    animal.animalBrain.grow();
+    animal.animalBrain.sleep();
 
 
-    CarWash c = CarWash(5.0, 4);
-    c.pay(100500, 9.00);
-    c.discount();
-    c.washCar();
+    auto carWash = CarWash(5.0, 4);
+    carWash.pay(100500, 9.00);
+    carWash.discount();
+    carWash.washCar();
 
     //nested
-    c.w.switchDirections();
-    c.w.graduallyAddSides(100);
-    c.w.toggleOnOff();
+    carWash.washer.switchDirections();
+    carWash.washer.graduallyAddSides(100);
+    carWash.washer.toggleOnOff();
 
     std::cout << "good to go!" << std::endl;
     /*
