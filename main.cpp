@@ -381,7 +381,7 @@ int main()
     petStore.lizardEpiphany();
     petStore.growLizard();
 
-    GasStation gasStation(Lamp(100.0, 50.0, 20.0), CarWash(5.0, 4));
+    auto gasStation = GasStation (Lamp(100.0, 50.0, 20.0), CarWash(5.0, 4));
     gasStation.payForPremiumWash(151);
     gasStation.nightCarWash(151);
 
