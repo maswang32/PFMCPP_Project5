@@ -89,7 +89,7 @@ struct CarWash
     }
     ~CarWash()
     {
-        //std::cout << "CarWash\n";
+        std::cout << "CarWash\n";
     }
 
     void washCar();
@@ -114,7 +114,7 @@ struct CarWash
         }
         ~Washer()
         {
-            //std::cout << "Washer\n";
+            std::cout << "Washer\n";
         }
 
         int graduallyAddSides(int sidesToAdd = 100);
@@ -129,7 +129,7 @@ void CarWash::washCar()
 {
     for(int i = 1; i < numberOfWashers + 2; ++i)
     {
-        //std::cout << i << " Washers used\n" << "\n";
+        std::cout << i << " Washers used\n" << "\n";
     }
 }
 
@@ -143,7 +143,7 @@ bool CarWash::pay(int cardInfo, double amount)
 {
     if((cardInfo != 0) && (amount == 0.0))
     {
-        //std::cout << "\nPaying Amount: " << amount;
+        std::cout << "\nPaying Amount: " << amount;
         return true;
     }
     return false;
@@ -153,7 +153,7 @@ int CarWash::Washer::graduallyAddSides(int sidesToAdd)
 {
     for(int i = numberOfSides; i < numberOfSides + sidesToAdd+1; ++i)
     {
-           //std::cout << i << " is the current number of sides\n";
+           std::cout << i << " is the current number of sides\n";
     }
     numberOfSides += sidesToAdd;
     return numberOfSides;
@@ -192,7 +192,7 @@ struct Animal
 
     ~Animal()
     {
-        //std::cout << "Animal\n";
+        std::cout << "Animal\n";
     }
 
     bool tryToFly();
@@ -214,7 +214,7 @@ struct Animal
 
         ~Brain()
         {
-            //std::cout << "Brain\n";
+            std::cout << "Brain\n";
         }
     
         std::string think(std::string subject);
@@ -228,10 +228,10 @@ bool Animal::tryToFly()
 {
     if(canFly)
     {
-        //std::cout << "\nFlying\n";
+        std::cout << "\nFlying\n";
         return true;
     }
-    //std::cout << "\nFalling\n";
+    std::cout << "\nFalling\n";
     return false;
 }
 
@@ -239,7 +239,7 @@ void Animal::loseLegs()
 {
     for(int i = numLegs; i > 0; --i)
     {
-        //std::cout << "\nLost a leg\n";
+        std::cout << "\nLost a leg\n";
     }
 }
 double Animal::jump()
@@ -258,7 +258,7 @@ std::string Animal::Brain::think(std::string subject)
 {
     for(int i = 0; i < 100; ++i)
     {
-        //std::cout << subject << "\n";
+        std::cout << subject << "\n";
     }
     return subject;
 }
@@ -301,7 +301,7 @@ struct Lamp
 
     ~Lamp()
     {
-        //std::cout << "Lamp\n";
+        std::cout << "Lamp\n";
     }
 };
 
@@ -346,7 +346,7 @@ struct GasStation
 
     ~GasStation()
     {
-        //std::cout << "End of Life Discount\n";
+        std::cout << "End of Life Discount\n";
         carWash.discount();
     }
 
@@ -379,7 +379,7 @@ struct PetStore
     {}
     ~PetStore()
     {
-        //std::cout << "Putting Animal to Sleep\n";
+        std::cout << "Putting Animal to Sleep\n";
         animal.animalBrain.sleep();
     }
 
