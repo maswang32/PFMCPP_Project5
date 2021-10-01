@@ -34,7 +34,8 @@ namespace Example
     //a User-Defined Type
     struct MyFoo
     {
-        MyFoo() { std::cout << "creating MyFoo" << std::endl; }
+        MyFoo() 
+        { std::cout << "creating MyFoo" << std::endl; }
         ~MyFoo() { std::cout << "destroying MyFoo" << std::endl; }
         
 		// 2a) the member function whose function body is almost identical to the std::cout statement in main.
@@ -88,7 +89,7 @@ struct CarWash
     }
     ~CarWash()
     {
-        std::cout << "CarWash\n";
+        //std::cout << "CarWash\n";
     }
 
     void washCar();
@@ -96,6 +97,8 @@ struct CarWash
     void discount();
 
     bool pay(int cardInfo, double amount = 0.0);
+
+    void printDiscount();
 
     struct Washer
     {
@@ -111,7 +114,7 @@ struct CarWash
         }
         ~Washer()
         {
-            std::cout << "Washer\n";
+            //std::cout << "Washer\n";
         }
 
         int graduallyAddSides(int sidesToAdd = 100);
@@ -126,7 +129,7 @@ void CarWash::washCar()
 {
     for(int i = 1; i < numberOfWashers + 2; ++i)
     {
-        std::cout << i << " Washers used\n" << "\n";
+        //std::cout << i << " Washers used\n" << "\n";
     }
 }
 
@@ -138,9 +141,9 @@ void CarWash::discount()
 //not sure where to put default arguments
 bool CarWash::pay(int cardInfo, double amount)
 {
-    if(cardInfo != 0)
+    if((cardInfo != 0) && (amount == 0.0))
     {
-        std::cout << "Paying Amount: " << amount;
+        //std::cout << "\nPaying Amount: " << amount;
         return true;
     }
     return false;
@@ -150,7 +153,7 @@ int CarWash::Washer::graduallyAddSides(int sidesToAdd)
 {
     for(int i = numberOfSides; i < numberOfSides + sidesToAdd+1; ++i)
     {
-           std::cout << i << " is the current number of sides\n";
+           //std::cout << i << " is the current number of sides\n";
     }
     numberOfSides += sidesToAdd;
     return numberOfSides;
@@ -165,6 +168,11 @@ void CarWash::Washer::switchDirections()
 {
     isClockWise = !isClockWise;
 }
+
+void CarWash::printDiscount()
+{
+    std::cout << this->hasDiscount << std::endl;
+}
 /*
  UDT 2:
  */
@@ -176,6 +184,7 @@ struct Animal
     bool canFly;
     double weight;
 
+
     Animal(int numEyes_ = 2, bool canFly_=false, double weight_ = 20.0) 
     : numEyes(numEyes_), canFly(canFly_), weight(weight_)
     {
@@ -183,12 +192,13 @@ struct Animal
 
     ~Animal()
     {
-        std::cout << "Animal\n";
+        //std::cout << "Animal\n";
     }
 
     bool tryToFly();
     void loseLegs();
     double jump(); //returns jump height
+    void printCanFly();
 
     struct Brain
     {
@@ -204,7 +214,7 @@ struct Animal
 
         ~Brain()
         {
-            std::cout << "Brain\n";
+            //std::cout << "Brain\n";
         }
     
         std::string think(std::string subject);
@@ -218,10 +228,10 @@ bool Animal::tryToFly()
 {
     if(canFly)
     {
-        std::cout << "Flying\n";
+        //std::cout << "\nFlying\n";
         return true;
     }
-    std::cout << "Falling\n";
+    //std::cout << "\nFalling\n";
     return false;
 }
 
@@ -229,7 +239,7 @@ void Animal::loseLegs()
 {
     for(int i = numLegs; i > 0; --i)
     {
-        std::cout << "Lost a leg\n";
+        //std::cout << "\nLost a leg\n";
     }
 }
 double Animal::jump()
@@ -248,9 +258,9 @@ std::string Animal::Brain::think(std::string subject)
 {
     for(int i = 0; i < 100; ++i)
     {
-        std::cout << subject << "\n";
+        //std::cout << subject << "\n";
     }
-    return "done thinking\n";
+    return subject;
 }
 
 void Animal::Brain::sleep()
@@ -261,6 +271,11 @@ void Animal::Brain::sleep()
 void Animal::Brain::grow()
 {
     ++weight;
+}
+
+void Animal::printCanFly()
+{
+    std::cout << this->canFly << std::endl;
 }
 
 /*
@@ -277,6 +292,7 @@ struct Lamp
     void turnOn();
     void light(bool hasPower=true);
     double getPowerConsumption();
+    void printBrightness();
 
     Lamp(double brightness_, double hue_, double wattage_)
     : brightness(brightness_), hue(hue_), wattage(wattage_)
@@ -285,7 +301,7 @@ struct Lamp
 
     ~Lamp()
     {
-        std::cout << "Lamp\n";
+        //std::cout << "Lamp\n";
     }
 };
 
@@ -311,6 +327,11 @@ double Lamp::getPowerConsumption()
     return brightness * hue * wattage;
 }
 
+void Lamp::printBrightness()
+{
+    std::cout<< this->brightness << std::endl;
+}
+
 /*
  new UDT 4:
  */
@@ -325,7 +346,7 @@ struct GasStation
 
     ~GasStation()
     {
-        std::cout << "End of Life Discount\n";
+        //std::cout << "End of Life Discount\n";
         carWash.discount();
     }
 
@@ -358,7 +379,7 @@ struct PetStore
     {}
     ~PetStore()
     {
-        std::cout << "Putting Animal to Sleep";
+        //std::cout << "Putting Animal to Sleep\n";
         animal.animalBrain.sleep();
     }
 
@@ -412,6 +433,9 @@ int main()
     lamp.getPowerConsumption();
     lamp.light(true);
 
+    
+
+
 
     //Animal tests
     auto animal = Animal();
@@ -419,8 +443,12 @@ int main()
     isFly = !isFly;
     animal.loseLegs();
     double jump = animal.jump();
+    jump += 1;
 
-    jump +=1;
+
+    //std::cout << "\n\nJump Height: "<< jump << std::endl;
+
+
 
 
     animal.animalBrain.think("thinking about C++");
@@ -433,10 +461,32 @@ int main()
     carWash.discount();
     carWash.washCar();
 
+    
+
+
+
     //nested
     carWash.washer.switchDirections();
     carWash.washer.graduallyAddSides(100);
     carWash.washer.toggleOnOff();
+
+
+
+    /*
+    * PROJECT 5 PART 2
+    */
+    std::cout << "\n\nLamp Brightness: \n" << lamp.brightness<<std::endl;
+    lamp.printBrightness();
+
+    std::cout << "\n\nDoes Wash have Discount? \n" << carWash.hasDiscount << std::endl;
+    carWash.printDiscount();
+
+
+    
+    std::cout << "\n\nCan Animal Fly? \n" << animal.canFly << std::endl;
+    animal.printCanFly();
+
+
 
     std::cout << "good to go!" << std::endl;
     /*
