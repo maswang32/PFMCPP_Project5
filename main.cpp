@@ -463,13 +463,10 @@ int main()
 
     
 
-
-
     //nested
     carWash.washer.switchDirections();
     carWash.washer.graduallyAddSides(100);
     carWash.washer.toggleOnOff();
-
 
 
     /*
@@ -481,12 +478,8 @@ int main()
     std::cout << "\n\nDoes Wash have Discount? \n" << carWash.hasDiscount << std::endl;
     carWash.printDiscount();
 
-
-    
     std::cout << "\n\nCan Animal Fly? \n" << animal.canFly << std::endl;
     animal.printCanFly();
-
-
 
     std::cout << "good to go!" << std::endl;
     /*
