@@ -34,8 +34,7 @@ namespace Example
     //a User-Defined Type
     struct MyFoo
     {
-        MyFoo() 
-        { std::cout << "creating MyFoo" << std::endl; }
+        MyFoo() { std::cout << "creating MyFoo" << std::endl; }
         ~MyFoo() { std::cout << "destroying MyFoo" << std::endl; }
         
 		// 2a) the member function whose function body is almost identical to the std::cout statement in main.
@@ -329,7 +328,7 @@ double Lamp::getPowerConsumption()
 
 void Lamp::printBrightness()
 {
-    std::cout<< this->brightness << std::endl;
+    std::cout << this->brightness << std::endl;
 }
 
 /*
