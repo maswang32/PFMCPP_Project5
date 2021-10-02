@@ -97,6 +97,8 @@ struct CarWash
 
     bool pay(int cardInfo, double amount = 0.0);
 
+    void printDiscount();
+
     struct Washer
     {
         double length;
@@ -138,9 +140,9 @@ void CarWash::discount()
 //not sure where to put default arguments
 bool CarWash::pay(int cardInfo, double amount)
 {
-    if(cardInfo != 0)
+    if((cardInfo != 0) && (amount == 0.0))
     {
-        std::cout << "Paying Amount: " << amount;
+        std::cout << "\nPaying Amount: " << amount;
         return true;
     }
     return false;
@@ -165,6 +167,11 @@ void CarWash::Washer::switchDirections()
 {
     isClockWise = !isClockWise;
 }
+
+void CarWash::printDiscount()
+{
+    std::cout << this->hasDiscount << std::endl;
+}
 /*
  UDT 2:
  */
@@ -175,6 +182,7 @@ struct Animal
     int numEyes;
     bool canFly;
     double weight;
+
 
     Animal(int numEyes_ = 2, bool canFly_=false, double weight_ = 20.0) 
     : numEyes(numEyes_), canFly(canFly_), weight(weight_)
@@ -189,6 +197,7 @@ struct Animal
     bool tryToFly();
     void loseLegs();
     double jump(); //returns jump height
+    void printCanFly();
 
     struct Brain
     {
@@ -218,10 +227,10 @@ bool Animal::tryToFly()
 {
     if(canFly)
     {
-        std::cout << "Flying\n";
+        std::cout << "\nFlying\n";
         return true;
     }
-    std::cout << "Falling\n";
+    std::cout << "\nFalling\n";
     return false;
 }
 
@@ -229,7 +238,7 @@ void Animal::loseLegs()
 {
     for(int i = numLegs; i > 0; --i)
     {
-        std::cout << "Lost a leg\n";
+        std::cout << "\nLost a leg\n";
     }
 }
 double Animal::jump()
@@ -250,7 +259,7 @@ std::string Animal::Brain::think(std::string subject)
     {
         std::cout << subject << "\n";
     }
-    return "done thinking\n";
+    return subject;
 }
 
 void Animal::Brain::sleep()
@@ -261,6 +270,11 @@ void Animal::Brain::sleep()
 void Animal::Brain::grow()
 {
     ++weight;
+}
+
+void Animal::printCanFly()
+{
+    std::cout << this->canFly << std::endl;
 }
 
 /*
@@ -277,6 +291,7 @@ struct Lamp
     void turnOn();
     void light(bool hasPower=true);
     double getPowerConsumption();
+    void printBrightness();
 
     Lamp(double brightness_, double hue_, double wattage_)
     : brightness(brightness_), hue(hue_), wattage(wattage_)
@@ -309,6 +324,11 @@ void Lamp::light(bool hasPower)
 double Lamp::getPowerConsumption()
 {
     return brightness * hue * wattage;
+}
+
+void Lamp::printBrightness()
+{
+    std::cout << this->brightness << std::endl;
 }
 
 /*
@@ -358,7 +378,7 @@ struct PetStore
     {}
     ~PetStore()
     {
-        std::cout << "Putting Animal to Sleep";
+        std::cout << "Putting Animal to Sleep\n";
         animal.animalBrain.sleep();
     }
 
@@ -412,6 +432,9 @@ int main()
     lamp.getPowerConsumption();
     lamp.light(true);
 
+    
+
+
 
     //Animal tests
     auto animal = Animal();
@@ -419,8 +442,12 @@ int main()
     isFly = !isFly;
     animal.loseLegs();
     double jump = animal.jump();
+    jump += 1;
 
-    jump +=1;
+
+    //std::cout << "\n\nJump Height: "<< jump << std::endl;
+
+
 
 
     animal.animalBrain.think("thinking about C++");
@@ -433,10 +460,25 @@ int main()
     carWash.discount();
     carWash.washCar();
 
+    
+
     //nested
     carWash.washer.switchDirections();
     carWash.washer.graduallyAddSides(100);
     carWash.washer.toggleOnOff();
+
+
+    /*
+    * PROJECT 5 PART 2
+    */
+    std::cout << "\n\nLamp Brightness: \n" << lamp.brightness<<std::endl;
+    lamp.printBrightness();
+
+    std::cout << "\n\nDoes Wash have Discount? \n" << carWash.hasDiscount << std::endl;
+    carWash.printDiscount();
+
+    std::cout << "\n\nCan Animal Fly? \n" << animal.canFly << std::endl;
+    animal.printCanFly();
 
     std::cout << "good to go!" << std::endl;
     /*
